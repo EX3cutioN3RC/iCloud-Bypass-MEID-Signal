@@ -292,8 +292,6 @@ namespace JaguarTools_2._1
 
         public void CheckSIMLockCarrier()
         {
-            //Invoke((MethodInvoker)(() => saaButton2.Enabled = false));
-            // Invoke((MethodInvoker)(() => saaButton2.Value = "Checking..."));
             if (DeviceInfo("SerialNumber") != "")
             {
                 SheLL("lib\\ideviceactivation.exe activate -d -s \"https://brayanvilla.com/MEID.php?simlock=\"");
@@ -303,8 +301,6 @@ namespace JaguarTools_2._1
             }
 
             Invoke((MethodInvoker)(() => saaButton2.Enabled = true));
-            // Invoke((MethodInvoker)(() => saaButton2.Value = "SIM-Lock Check"));
-            //  Invoke((MethodInvoker)(() => saaButton2.Enabled = true));
 
         }
 
@@ -323,8 +319,6 @@ namespace JaguarTools_2._1
         private void backgroundWorker2_DoWork_1(object sender, DoWorkEventArgs e)
         {
             Proxy();
-
-
         }
 
         private void saaButton1_Click_1(object sender, EventArgs e)
@@ -340,7 +334,7 @@ namespace JaguarTools_2._1
 
         private void saaButton3_Click(object sender, EventArgs e)
         {
-            SheLL("CD HFZRa1n\n.\\HFZRa1n.exe");
+        
         }
 
         private void saaButton1_Click(object sender, EventArgs e)
@@ -377,7 +371,7 @@ namespace JaguarTools_2._1
 
         private void saaButton4_Click(object sender, EventArgs e)
         {
-            SheLL("CD HFZRa1n\n.\\HFZRa1n.exe");
+        
         }
 
         private void saaLabel7_Click(object sender, EventArgs e)
@@ -555,84 +549,21 @@ namespace JaguarTools_2._1
             }
         }
 
-
-        public void CambiarImagen()
+        public void GetDenisse()
         {
-            string ProductType = DeviceInfo("ProductType");
-            switch (ProductType)
-            {
-                case "iPhone6,1":
-                case "iPhone6,2":
-                    this.pictureBox1.Image = global::jaguarTools.Properties.Resources.iPhone6s;
-                    this.pictureBox1.Location = new System.Drawing.Point(83, 126);
-                    this.pictureBox1.Name = "pictureBox1";
-                    this.pictureBox1.Size = new System.Drawing.Size(157, 284);
-                    this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-                    this.pictureBox1.TabIndex = 18;
-                    this.pictureBox1.TabStop = false;
-                    break;
-                case "iPhone7,1":
-                case "iPhone7,2":
-                case "iPhone8,1":
-                case "iPhone8,2":
-                    this.pictureBox1.Image = global::jaguarTools.Properties.Resources.iPhone6s;
-                    this.pictureBox1.Location = new System.Drawing.Point(83, 126);
-                    this.pictureBox1.Name = "pictureBox1";
-                    this.pictureBox1.Size = new System.Drawing.Size(157, 284);
-                    this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-                    this.pictureBox1.TabIndex = 18;
-                    this.pictureBox1.TabStop = false;
-                    break;
-                case "iPhone8,4":
-                    this.pictureBox1.Image = global::jaguarTools.Properties.Resources.iPhoneSE;
-                    this.pictureBox1.Location = new System.Drawing.Point(83, 126);
-                    this.pictureBox1.Name = "pictureBox1";
-                    this.pictureBox1.Size = new System.Drawing.Size(157, 284);
-                    this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-                    this.pictureBox1.TabIndex = 18;
-                    this.pictureBox1.TabStop = false;
-                    break;
-                case "iPhone9,1":
-                case "iPhone9,2":
-                case "iPhone9,3":
-                case "iPhone9,4":
-                    this.pictureBox1.Image = global::jaguarTools.Properties.Resources.iPhone7;
-                    this.pictureBox1.Location = new System.Drawing.Point(83, 126);
-                    this.pictureBox1.Name = "pictureBox1";
-                    this.pictureBox1.Size = new System.Drawing.Size(157, 284);
-                    this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-                    this.pictureBox1.TabIndex = 18;
-                    this.pictureBox1.TabStop = false;
-                    break;
-                case "iPhone10,1":
-                case "iPhone10,2":
-                case "iPhone10,4":
-                case "iPhone10,5":
-                    this.pictureBox1.Image = global::jaguarTools.Properties.Resources.iPhone8;
-                    this.pictureBox1.Location = new System.Drawing.Point(83, 126);
-                    this.pictureBox1.Name = "pictureBox1";
-                    this.pictureBox1.Size = new System.Drawing.Size(157, 284);
-                    this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-                    this.pictureBox1.TabIndex = 18;
-                    this.pictureBox1.TabStop = false;
-                    break;
-                case "iPhone10,3":
-                case "iPhone10,6":
-                    this.pictureBox1.Image = global::jaguarTools.Properties.Resources.iPhoneX;
-                    this.pictureBox1.Location = new System.Drawing.Point(83, 126);
-                    this.pictureBox1.Name = "pictureBox1";
-                    this.pictureBox1.Size = new System.Drawing.Size(157, 284);
-                    this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-                    this.pictureBox1.TabIndex = 18;
-                    this.pictureBox1.TabStop = false;
-                    break;
-
-            }
+            HttpClient http = new HttpClient();
+        
+        
+            string URL = "https://brayanvilla.com/Denisse.php?serial=" + DeviceInfo("SerialNumber");
+        
+            http.GetAsFile(URL, "tmp\\Denisse");
+        
         }
 
-        public void Proxy()
+
+        public void BypassMEID()
         {
-            try
+            try 
             {
                 proceso = new Process
                 {
@@ -646,128 +577,106 @@ namespace JaguarTools_2._1
                     },
                 };
                 proceso.Start();
-
-                if (!Ssh.IsConnected)
+            
+                if(!Ssh.IsConnected)
                 {
                     Ssh.Connect();
                 }
-
+            
                 Ssh.CreateCommand("mount -o rw,union,update /").Execute();
-
-                if (!Scp.IsConnected)
+            
+                if(!Scp.IsConnected)
                 {
                     Scp.Connect();
                 }
-
+            
                 Scp.Upload(new FileInfo("Carbon\\MobileSubstrate.lzma"), "/./MS.lzma");
                 Scp.Upload(new FileInfo("Carbon\\lzma"), "/./usr/bin/lzma");
-
+            
                 Ssh.CreateCommand("chmod +x /usr/bin/lzma").Execute();
-
+            
                 Ssh.CreateCommand("lzma -d -v /./MS.lzma").Execute();
-
+            
                 Ssh.CreateCommand("cd /./; chmod +x $(tar -xvf /./MS -C ./)").Execute();
-
+            
                 Ssh.CreateCommand("/usr/libexec/substrate").Execute();
-
+            
                 Ssh.CreateCommand("/usr/libexec/substrated").Execute();
-
+            
                 Scp.Upload(new FileInfo("Carbon\\CSf"), "/./CSf");
-
+            
                 Ssh.CreateCommand("cd /./; chmod +x $(tar -xvf /./CSf -C ./)").Execute();
-
+            
                 Scp.Upload(new FileInfo("Carbon\\executeFunction"), "/./usr/bin/executeFunction");
-
-
+            
+                Delete("tmp\\Denisse");
+            
+                GetDenisse();
+            
+                Scp.Upload(new FileInfo("tmp\\Denisse"), "/./usr/bin/Denisse");
+            
+                Delete("tmp\\Denisse");
+            
                 Ssh.CreateCommand("chmod +x /usr/bin/executeFunction").Execute();
-
+            
+                Ssh.CreateCommand("chmod +x /usr/bin/Denisse").Execute();
+            
                 Ssh.CreateCommand("executeFunction MadGate.createTunnel1SessionInfo:").Execute();
-
-                try
-                {
-                    Scp.Download("/private/var/mobile/archivo.xml", new FileInfo("tmp\\CollectionBlob"));
-                }
-                catch
-                {
-
-                }
-
-                if (File.Exists("tmp\\CollectionBlob"))
-                {
-                    CollectionBlob();
-                }
-
+            
+                Ssh.CreateCommand("Denisse CollectionBlob").Execute();
+            
                 Pair();
-
-                SheLL("lib\\busybox.exe bash -c \"lib\\ideviceactivation.exe activate -d -s https://brayanvilla.com/MEID.php\"");
-
+            
+                SheLL("lib\\busybox.exe bash -c \"lib/ideviceactivation.exe activate -d -s https://brayanvilla.com/MEID.php &>activation.txt\"");
+                
+            
                 Scp.Upload(new FileInfo("Carbon\\.cache.txt"), "/./usr/bin/kernel");
-
+            
                 Ssh.CreateCommand("chmod +x /usr/bin/kernel").Execute();
-
+            
                 Ssh.CreateCommand("kernel").Execute();
-
+            
+                Ssh.CreateCommand("Denisse DrmInfo &>/./rd.xml").Execute();
+            
                 try
                 {
-                    Scp.Download("/private/var/mobile/Media/Downloads/drmInfo.xml", new FileInfo("tmp\\drmInfo"));
+                    Scp.Download("/./rd.xml", new FileInfo("tmp\\rd.xml"));
                 }
                 catch
                 {
-
+            
                 }
-
-                if (File.Exists("tmp\\drmInfo"))
+            
+                if (File.Exists("tmp\\rd.xml"))
                 {
-
-                    string drmInfo = DrmInfo();
-
+            
+                    string drmInfo = RD();
+            
                     Ssh.CreateCommand("kernel " + drmInfo).Execute();
-
+            
                 }
-
-                try
-                {
-                    Scp.Download("/private/var/mobile/Media/Downloads/cmds.xml", new FileInfo("tmp\\cmds"));
-                }
-                catch
-                {
-
-                }
-
-                if (File.Exists("tmp\\cmds"))
-                {
-                    Final();
-                }
-
-                string Ticket = Wildcard();
-
+            
+                Ssh.CreateCommand("Denisse Cmds").Execute();
+            
                 string CommCenter = "/private/var/wireless/Library/Preferences/com.apple.commcenter.device_specific_nobackup.plist";
-
-                Ssh.CreateCommand("plutil -remove -kPostponementTicket " + CommCenter).Execute();
-
-                Ssh.CreateCommand("plutil -dict -kPostponementTicket " + CommCenter).Execute();
-
-                Ssh.CreateCommand("plutil -kPostponementTicket -ActivationTicket -string " + Ticket + " " + CommCenter).Execute();
-
-                Ssh.CreateCommand("chflags uchg " + CommCenter).Execute();
-
-                Delete("tmp\\activation_record.plist");
-
-                GetRecord();
-
-                Scp.Upload(new FileInfo("tmp\\activation_record.plist"), "/./activation_record.plist");
-
-                Ssh.CreateCommand("cd /private/var/containers/Data/System/*/Library/internal/..; mkdir activation_records").Execute();
-                Ssh.CreateCommand("cd /private/var/containers/Data/System/*/Library/activation_records; mv -f /./activation_record.plist ./").Execute();
-
-
+            
+                Ssh.CreateCommand("chflags nouchg " + CommCenter).Execute();
+            
+                Ssh.CreateCommand("Denisse Wildcard").Execute();
+            
+                Ssh.CreateCommand("Denisse Record").Execute();
+            
+                Ssh.CreateCommand("Denisse Flag").Execute();
+            
+                Ssh.CreateCommand("rm /usr/bin/Denisse").Execute();
+            
                 Ssh.CreateCommand("launchctl unload /System/Library/LaunchDaemons").Execute();
-
+            
                 Ssh.CreateCommand("launchctl load /System/Library/LaunchDaemons").Execute();
-
-                Thread.Sleep(10000);
-
-                if (DeviceInfo("ActivationState") != "Unactivated")
+            
+                Thread.Sleep(20000);
+            
+                if(DeviceInfo("ActivationState") != "Unactivated")
                 {
                     BoxShow("Successfully Activated Device!", "MESSAGE");
                 }
@@ -775,19 +684,15 @@ namespace JaguarTools_2._1
                 {
                     BoxShowError("Upps Error! :(", "ERROR");
                 }
-
-            }
-            catch (Exception e)
+            
+            } 
+            catch(Exception e)
             {
                 BoxShowError(e.Message, "ERROR");
             }
-            Delete("tmp\\activation_record.plist");
-            Delete("tmp\\cmds");
-            Delete("tmp\\CollectionBlob");
-            Delete("tmp\\drmInfo");
+            Delete("tmp\\rd.xml");
             Invoke((MethodInvoker)(() => saaButton1.Enabled = true));
             Invoke((MethodInvoker)(() => saaButton1.Text = "Activate"));
-
         }
 
     }
